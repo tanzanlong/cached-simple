@@ -9,9 +9,9 @@
     <packaging>pom</packaging>
     <version>1.0.2-SNAPSHOT</version>
     <modules>
-        <module>redis-simple</module>
-        <module>memcached-simple</module>
-        <module>localcached-simple</module>
+        <module>cached-redis-simple</module>
+        <module>cached-memcached-simple</module>
+        <module>cached-localcached-simple</module>
     </modules>
 
     <properties>
@@ -19,8 +19,6 @@
         <project.encoding>UTF-8</project.encoding>
         <maven-compiler.version>2.5.1</maven-compiler.version>
 
-        <account-service-api.version>1.0.2-SNAPSHOT</account-service-api.version>
-	    <acct-customer-service-api.version>1.1.3-SNAPSHOT</acct-customer-service-api.version>
         <dubbo.version>2.8.4</dubbo.version>
         <kryo.version>2.24.0</kryo.version>
         <kryo-serializers.version>0.26</kryo-serializers.version>
@@ -42,7 +40,7 @@
     </properties>
 
     <dependencyManagement>
-      
+      <dependencies>
 
             <!-- dubbox start -->
             <dependency>

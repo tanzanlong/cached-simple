@@ -1,0 +1,61 @@
+
+慢查询 
+阈值设置 ：
+
+config set slowlog-log-slower-than 20000  微秒（ 1秒=1000毫秒=1000000微秒） ， 
+config set slowlog-max-len 1000       慢查询日志最多存储多少条
+config rewrite               配置持久化
+
+slowlog get [n]
+
+slowlog len 获取慢日志当前长度
+
+slowlog reset 慢日志重置 
+
+
+·slowlog-max-len配置建议： 线上建议调大慢查询列表， 记录慢查询时
+Redis会对长命令做截断操作， 并不会占用大量内存。 增大慢查询列表可以
+减缓慢查询被剔除的可能， 例如线上可设置为1000以上。
+·slowlog-log-slower-than配置建议： 默认值超过10毫秒判定为慢查询，
+需要根据Redis并发量调整该值。 由于Redis采用单线程响应命令， 对于高流
+量的场景， 如果命令执行时间在1毫秒以上， 那么Redis最多可支撑OPS不到
+1000。 因此对于高OPS场景的Redis建议设置为1毫秒。
+·慢查询只记录命令执行时间， 并不包括命令排队和网络传输时间。 
+
+
+
+
+src/redis-cli -r 3 -i 1  ping  重复三次  没间隔1s发次ping请求
+
+redis-cli -r 100 -i 1 info | grep used_memory_human           每隔1秒输出内存的使用量， 一共输出100次
+
+
+src/redis-benchmark -c 100-n 20000 -r 10000
+
+src/redis-benchmark -t get,set --csv
+
+
+
+输入缓冲区没有大小设置限制 只是要求大小不超过 1G，超过客户端连接会被关闭。
+
+
+输出缓冲区 
+设置参数： client-output-buffer-limit <class> <hard limit> <soft limit> <soft seconds>
+
+<class>分为三类 ：nomal:普通客户端  slave:客户端 用户复制  pubsub:发布订阅客户端
+<hard limit> 客户端输出缓冲区大于hard limit ，客户端关闭。
+
+<soft limit> 客户端输出缓冲区大于soft limit超过soft seconds秒 ，客户端关闭。
+
+
+redis-cli --bigkeys 查找大key值
+
+info status
+
+info persistence
+
+redis-cli -p 6383 info server | grep process_id 查询进程号 
+ 
+cat /proc/4476/smaps | grep Swap    根据进程号查询swap信息
+
+

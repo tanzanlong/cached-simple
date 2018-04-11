@@ -1,0 +1,20 @@
+主从复制
+
+配置复制的方式有以下三种：
+1） 在配置文件中加入slaveof{masterHost}{masterPort}随Redis启动生
+效。
+2） 在redis-server启动命令后加入--slaveof{masterHost}{masterPort}生
+效。
+
+
+info replication 查看角色信息
+
+
+slave no one 断开主从复制
+
+默认情况从节点slave-read-only=yes 只读模式
+
+
+数据同步
+可以通过psync命令来完成数据同步。
+同步分为全量复制和部分复制。全量复制一般在首次时使用。

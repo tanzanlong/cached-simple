@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baibei.accountservice.dao.TDailyPaycenterResultMapper" >
+  <resultMap id="BaseResultMap" type="com.baibei.accountservice.model.TDailyPaycenterResult" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="amount_expect" property="amountExpect" jdbcType="BIGINT" />
+    <result column="amount_actual" property="amountActual" jdbcType="BIGINT" />
+    <result column="order_type" property="orderType" jdbcType="VARCHAR" />
+    <result column="order_status_expect" property="orderStatusExpect" jdbcType="VARCHAR" />
+    <result column="order_status_actual" property="orderStatusActual" jdbcType="VARCHAR" />
+    <result column="deal_date" property="dealDate" jdbcType="DATE" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, order_id, amount_expect, amount_actual, order_type, order_status_expect, order_status_actual, 
+    deal_date, type, memo, create_time, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.baibei.accountservice.model.TDailyPaycenterResultExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_daily_paycenter_result
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_daily_paycenter_result
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_daily_paycenter_result
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.baibei.accountservice.model.TDailyPaycenterResultExample" >
+    delete from t_daily_paycenter_result
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.baibei.accountservice.model.TDailyPaycenterResult" >
+    insert into t_daily_paycenter_result (id, order_id, amount_expect, 
+      amount_actual, order_type, order_status_expect, 
+      order_status_actual, deal_date, type, 
+      memo, create_time, update_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{orderId,jdbcType=VARCHAR}, #{amountExpect,jdbcType=BIGINT}, 
+      #{amountActual,jdbcType=BIGINT}, #{orderType,jdbcType=VARCHAR}, #{orderStatusExpect,jdbcType=VARCHAR}, 
+      #{orderStatusActual,jdbcType=VARCHAR}, #{dealDate,jdbcType=DATE}, #{type,jdbcType=VARCHAR}, 
+      #{memo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.baibei.accountservice.model.TDailyPaycenterResult" >
+    insert into t_daily_paycenter_result
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="amountExpect != null" >
+        amount_expect,
+      </if>
+      <if test="amountActual != null" >
+        amount_actual,
+      </if>
+      <if test="orderType != null" >
+        order_type,
+      </if>
+      <if test="orderStatusExpect != null" >
+        order_status_expect,
+      </if>
+      <if test="orderStatusActual != null" >
+        order_status_actual,
+      </if>
+      <if test="dealDate != null" >
+        deal_date,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="memo != null" >
+        memo,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="amountExpect != null" >
+        #{amountExpect,jdbcType=BIGINT},
+      </if>
+      <if test="amountActual != null" >
+        #{amountActual,jdbcType=BIGINT},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatusExpect != null" >
+        #{orderStatusExpect,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatusActual != null" >
+        #{orderStatusActual,jdbcType=VARCHAR},
+      </if>
+      <if test="dealDate != null" >
+        #{dealDate,jdbcType=DATE},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.baibei.accountservice.model.TDailyPaycenterResultExample" resultType="java.lang.Integer" >
+    select count(*) from t_daily_paycenter_result
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_daily_paycenter_result
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amountExpect != null" >
+        amount_expect = #{record.amountExpect,jdbcType=BIGINT},
+      </if>
+      <if test="record.amountActual != null" >
+        amount_actual = #{record.amountActual,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderType != null" >
+        order_type = #{record.orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderStatusExpect != null" >
+        order_status_expect = #{record.orderStatusExpect,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderStatusActual != null" >
+        order_status_actual = #{record.orderStatusActual,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealDate != null" >
+        deal_date = #{record.dealDate,jdbcType=DATE},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memo != null" >
+        memo = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_daily_paycenter_result
+    set id = #{record.id,jdbcType=BIGINT},
+      order_id = #{record.orderId,jdbcType=VARCHAR},
+      amount_expect = #{record.amountExpect,jdbcType=BIGINT},
+      amount_actual = #{record.amountActual,jdbcType=BIGINT},
+      order_type = #{record.orderType,jdbcType=VARCHAR},
+      order_status_expect = #{record.orderStatusExpect,jdbcType=VARCHAR},
+      order_status_actual = #{record.orderStatusActual,jdbcType=VARCHAR},
+      deal_date = #{record.dealDate,jdbcType=DATE},
+      type = #{record.type,jdbcType=VARCHAR},
+      memo = #{record.memo,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.baibei.accountservice.model.TDailyPaycenterResult" >
+    update t_daily_paycenter_result
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="amountExpect != null" >
+        amount_expect = #{amountExpect,jdbcType=BIGINT},
+      </if>
+      <if test="amountActual != null" >
+        amount_actual = #{amountActual,jdbcType=BIGINT},
+      </if>
+      <if test="orderType != null" >
+        order_type = #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatusExpect != null" >
+        order_status_expect = #{orderStatusExpect,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatusActual != null" >
+        order_status_actual = #{orderStatusActual,jdbcType=VARCHAR},
+      </if>
+      <if test="dealDate != null" >
+        deal_date = #{dealDate,jdbcType=DATE},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.baibei.accountservice.model.TDailyPaycenterResult" >
+    update t_daily_paycenter_result
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      amount_expect = #{amountExpect,jdbcType=BIGINT},
+      amount_actual = #{amountActual,jdbcType=BIGINT},
+      order_type = #{orderType,jdbcType=VARCHAR},
+      order_status_expect = #{orderStatusExpect,jdbcType=VARCHAR},
+      order_status_actual = #{orderStatusActual,jdbcType=VARCHAR},
+      deal_date = #{dealDate,jdbcType=DATE},
+      type = #{type,jdbcType=VARCHAR},
+      memo = #{memo,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select resultMap="BaseResultMap" parameterType="com.baibei.accountservice.model.TDailyPaycenterResultExample" id="selectByExampleWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_daily_paycenter_result
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

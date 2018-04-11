@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baibei.accountservice.dao.TAccountCashierLogMapper" >
+  <resultMap id="BaseResultMap" type="com.baibei.accountservice.model.TAccountCashierLog" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="order_type" property="orderType" jdbcType="VARCHAR" />
+    <result column="account_id" property="accountId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="change_amount" property="changeAmount" jdbcType="BIGINT" />
+    <result column="change_before" property="changeBefore" jdbcType="BIGINT" />
+    <result column="balance_type" property="balanceType" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="fee_item" property="feeItem" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="DailySettlementResultMap" type="com.baibei.accountservice.model.TAccountCashierLog" >
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="order_type" property="orderType" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="DailySettlementItemResultMap" type="com.baibei.accountservice.model.TAccountCashierLog" >
+    <result column="account_id" property="accountId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="change_amount" property="changeAmount" jdbcType="BIGINT" />
+    <result column="fee_item" property="feeItem" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, order_id, order_type, account_id, user_id, change_amount, change_before, balance_type, 
+    create_time, fee_item, org_id, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.baibei.accountservice.model.TAccountCashierLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_account_cashier_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+      <if test="limitCount!= null and limitCount>0" >
+      limit ${limitCount}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_account_cashier_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_account_cashier_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.baibei.accountservice.model.TAccountCashierLogExample" >
+    delete from t_account_cashier_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.baibei.accountservice.model.TAccountCashierLog" >
+    insert into t_account_cashier_log (id, order_id, order_type, 
+      account_id, user_id, change_amount, 
+      change_before, balance_type, create_time, 
+      fee_item, org_id, update_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{orderId,jdbcType=VARCHAR}, #{orderType,jdbcType=VARCHAR}, 
+      #{accountId,jdbcType=BIGINT}, #{userId,jdbcType=VARCHAR}, #{changeAmount,jdbcType=BIGINT}, 
+      #{changeBefore,jdbcType=BIGINT}, #{balanceType,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{feeItem,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.baibei.accountservice.model.TAccountCashierLog" >
+    insert into t_account_cashier_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="orderType != null" >
+        order_type,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="changeAmount != null" >
+        change_amount,
+      </if>
+      <if test="changeBefore != null" >
+        change_before,
+      </if>
+      <if test="balanceType != null" >
+        balance_type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="feeItem != null" >
+        fee_item,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="changeAmount != null" >
+        #{changeAmount,jdbcType=BIGINT},
+      </if>
+      <if test="changeBefore != null" >
+        #{changeBefore,jdbcType=BIGINT},
+      </if>
+      <if test="balanceType != null" >
+        #{balanceType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="feeItem != null" >
+        #{feeItem,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.baibei.accountservice.model.TAccountCashierLogExample" resultType="java.lang.Integer" >
+    select count(*) from t_account_cashier_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_account_cashier_log
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderType != null" >
+        order_type = #{record.orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountId != null" >
+        account_id = #{record.accountId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.changeAmount != null" >
+        change_amount = #{record.changeAmount,jdbcType=BIGINT},
+      </if>
+      <if test="record.changeBefore != null" >
+        change_before = #{record.changeBefore,jdbcType=BIGINT},
+      </if>
+      <if test="record.balanceType != null" >
+        balance_type = #{record.balanceType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.feeItem != null" >
+        fee_item = #{record.feeItem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgId != null" >
+        org_id = #{record.orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_account_cashier_log
+    set id = #{record.id,jdbcType=BIGINT},
+      order_id = #{record.orderId,jdbcType=VARCHAR},
+      order_type = #{record.orderType,jdbcType=VARCHAR},
+      account_id = #{record.accountId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      change_amount = #{record.changeAmount,jdbcType=BIGINT},
+      change_before = #{record.changeBefore,jdbcType=BIGINT},
+      balance_type = #{record.balanceType,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      fee_item = #{record.feeItem,jdbcType=VARCHAR},
+      org_id = #{record.orgId,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.baibei.accountservice.model.TAccountCashierLog" >
+    update t_account_cashier_log
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        order_type = #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="changeAmount != null" >
+        change_amount = #{changeAmount,jdbcType=BIGINT},
+      </if>
+      <if test="changeBefore != null" >
+        change_before = #{changeBefore,jdbcType=BIGINT},
+      </if>
+      <if test="balanceType != null" >
+        balance_type = #{balanceType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="feeItem != null" >
+        fee_item = #{feeItem,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.baibei.accountservice.model.TAccountCashierLog" >
+    update t_account_cashier_log
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      order_type = #{orderType,jdbcType=VARCHAR},
+      account_id = #{accountId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=VARCHAR},
+      change_amount = #{changeAmount,jdbcType=BIGINT},
+      change_before = #{changeBefore,jdbcType=BIGINT},
+      balance_type = #{balanceType,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      fee_item = #{feeItem,jdbcType=VARCHAR},
+      org_id = #{orgId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select resultMap="BaseResultMap" parameterType="com.baibei.accountservice.model.TAccountCashierLogExample" id="selectByExampleWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_account_cashier_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+    <select id="getDailySettlementData" resultMap="DailySettlementResultMap">
+		SELECT tacl.order_id,tacl.order_type,tacl.create_time
+	FROM t_account_cashier_log tacl
+	WHERE tacl.create_time BETWEEN #{beginDate} AND #{endDate}
+	GROUP BY tacl.order_id
+	  </select>
+	  <select id="getDailySettlementItemData" resultMap="DailySettlementItemResultMap">
+		SELECT tacl.user_id,tacl.account_id,tacl.change_amount,tacl.fee_item
+	FROM t_account_cashier_log tacl
+	WHERE tacl.create_time BETWEEN #{beginDate} AND #{endDate} AND tacl.order_id=#{orderId}
+	  </select>
+
+
+
+	<select id="queryOrgTotalFee" resultType="java.lang.Long">
+		SELECT
+		sum(change_amount)
+		FROM t_account_cashier_log tacl
+		WHERE tacl.create_time BETWEEN #{beginDate} AND #{endDate} AND tacl.fee_item=#{feeItem}  AND  org_id = #{orgId,jdbcType=VARCHAR}  and change_amount>0
+	</select>
+
+	<select id="queryOrgTotalByFeeItem" resultType="java.lang.Long">
+		SELECT
+		sum(change_amount)
+		FROM t_account_cashier_log tacl
+		WHERE
+		tacl.create_time BETWEEN #{beginDate} AND #{endDate} AND
+		tacl.fee_item=#{feeItem} AND org_id = #{orgId,jdbcType=VARCHAR} 
+	</select>
+	
+	 <select id="getDailySettlementDataPage" resultMap="BaseResultMap">
+		SELECT id,order_id, order_type, account_id, user_id, change_amount, balance_type, create_time, fee_item
+	FROM t_account_cashier_log
+	WHERE tacl.create_time BETWEEN #{beginDate} AND #{endDate} order by id limit ${offset},${size}
+	  </select>
+	  
+	<select id="queryOrderIdPageByUserId" resultMap="BaseResultMap">
+		SELECT distinct order_id, order_type 
+	FROM t_account_cashier_log
+	WHERE create_time BETWEEN #{beginDate} AND #{endDate} and user_id in (
+           <foreach collection="list" item="item" index="index" separator=","> 
+           	#{item}
+  	</foreach>
+ 	 ) order by id desc limit ${offset},${size}
+	  </select>
+</mapper>

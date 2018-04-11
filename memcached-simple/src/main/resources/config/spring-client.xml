@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+
+	<description>第三方中间件的客户端</description>
+
+	<!--jedis -->
+	<!-- <bean id="jedisClusterManager" class="com.baibei.component.redis.JedisClusterManager" 
+		init-method="init"> <property name="servers" value="${redis.cluster.servers}" 
+		/> <property name="timeout" value="${redis.cluster.timeout}" /> <property 
+		name="maxRedirections" value="${redis.cluster.max_redirections}" /> </bean> -->
+
+
+	<!-- redis client -->
+	<bean id="jedisClusterManager" class="com.baibei.accountservice.util.JedisClusterManager"
+		init-method="init">
+		<property name="servers" value="${REDIS.CLUSTER.SERVERS}" />
+		<property name="timeout" value="${REDIS.CLUSTER.TIMEOUT}" />
+		<property name="maxRedirections" value="${REDIS.CLUSTER.MAX_REDIRECTIONS}" />
+	</bean>
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxTotal" value="500" />
+		<property name="maxIdle" value="50" />
+		<property name="minIdle" value="10" />
+	</bean>
+
+</beans>

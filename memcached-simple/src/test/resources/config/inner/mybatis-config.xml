@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+	</typeAliases>
+	<mappers>
+		<!-- add xml config -->
+		<mapper resource="mybatis/money/MoneyLogMapper.xml" />
+		<mapper resource="mybatis/agent/AgentMapper.xml" />	
+        <mapper resource="mybatis/coupon/CustomerCouponMapper.xml" /> 
+		<mapper resource="mybatis/coupon/CouponMapper.xml" />
+		<mapper resource="mybatis/user/CustomerMapper.xml" />
+	    <mapper resource="mybatis/user/CustomerBalanceMapper.xml" />
+	     <mapper resource="mybatis/user/CustomerBrokerMapper.xml" />
+		<mapper resource="mybatis/product/ProductMapper.xml" />
+		<mapper resource="mybatis/memberunit/MemberUnitsMapper.xml" />
+	    <mapper resource="mybatis/order/OrderMapper.xml" />
+	    <mapper resource="mybatis/rabbit/rabbitMapper.xml" />
+	    <mapper resource="mybatis/tradeDay/TradeDayMapper.xml" />
+		<mapper resource="mybatis/items/ItemsMapper.xml" />
+		<mapper resource="mybatis/buy/BuyMapper.xml" />
+		<mapper resource="mybatis/order/SequenceReadMapper.xml" />
+	<!-- 	
+	<mapper resource="com/weipan/mybatis/org/OrgMapper.xml" />
+	    <mapper resource="com/weipan/api/mybatis/securities/SecuritiesMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/qujian/QuJianMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/items/ItemsMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/notice/NoticeMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/member/MemberArticlesMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/product/ProductMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/vote/VoteMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/syslog/SysOperLogsMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/bankinfo/BankInfoMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/user/CustomerBalanceMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/order/OrderMapper.xml" />
+	
+
+		<mapper resource="com/weipan/api/mybatis/tradeday/TradeDayMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/quote/QuoteMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/wechat/WechatMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/memberunit/MemberUnitsMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/memberunit/CustomerUnitsMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/delivery/DeliveryMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/delivery/DeliveryOrderMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/delivery/AddressMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/video/VideoMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/quote/KLineMapper.xml" />
+
+		<mapper resource="com/weipan/api/mybatis/order/OrderMiddleMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/apRule/ApRuleMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/charge/ChargeMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/memberunit/MemberUnitsSMSMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/sms/SMSCodeMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/user/CustomerBrokerMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/advertisements/IAdvertisementsmapper.xml" />
+	    <mapper resource="com/weipan/api/mybatis/user/PlatCustomerMapper.xml" />
+		<mapper resource="com/weipan/api/mybatis/vote/OpinionPercentMapper.xml" />		
+		<mapper resource="com/weipan/api/mybatis/buy/OrderSuspendMapper.xml" />	
+	    <mapper resource="com/weipan/api/mybatis/activity/JoinInfoMapper.xml" />
+	    <mapper resource="com/weipan/api/mybatis/activity/PrizeMapper.xml" />		
+		<mapper resource="com/weipan/api/mybatis/order/SettleBeanMapper.xml" />	
+		<mapper resource="com/weipan/api/mybatis/withdraw/WithdrawalLogMapper.xml" /> -->
+	</mappers>
+</configuration>

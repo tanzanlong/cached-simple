@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	   xmlns:apollo="http://www.ctrip.com/schema/apollo"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	   http://code.alibabatech.com/schema/dubbo
+	   http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+	   http://www.ctrip.com/schema/apollo http://www.ctrip.com/schema/apollo.xsd">
+
+	<!-- address 注册zookeeper的地址 -->
+	<apollo:config/>
+	<dubbo:registry address="${dubbo.zookeeper.address}" file="./.dubbo/registry_cache" />
+
+<!--  消费组配置  lazy=true 为延迟加载，  check="false"表明启动时 不检查生产者是否已注册，timeout抵用生产者的超时时间， retries重试此时，version接口版本 -->
+	<dubbo:consumer id="account-service-consumer" lazy="true" check="false"  timeout="20000" retries="0"  default="false"  version="1.0.0"  />
+
+<!-- 账户交易服务 loadbalance="roundrobin"，负载均衡方式，这里为轮询-->
+ <dubbo:reference id="userInventoryInitService" interface="com.baibei.repository.service.init.UserInventoryInitService" loadbalance="roundrobin" consumer="account-service-consumer" />
+
+<!-- 账户交易服务 loadbalance="roundrobin"，负载均衡方式，这里为轮询-->
+ <dubbo:reference id="smsPushProvider" interface="com.baibei.push.server.provider.SmsPushProvider" loadbalance="roundrobin" consumer="account-service-consumer" />
+
+<!-- 账户交易服务 loadbalance="roundrobin"，负载均衡方式，这里为轮询-->
+ <dubbo:reference id="productQueryProvider" interface="com.baibei.product.provider.ProductQueryProvider" loadbalance="roundrobin" consumer="account-service-consumer" />
+
+<!-- 账户交易服务 loadbalance="roundrobin"，负载均衡方式，这里为轮询-->
+ <dubbo:reference id="commonUserService" interface="com.baibei.user.api.service.common.CommonUserService" loadbalance="roundrobin" consumer="account-service-consumer" />
+
+<!-- 融資融貨 loadbalance="roundrobin"，负载均衡方式，这里为轮询-->
+<dubbo:reference id="userInventoryAccountQueryService" interface="com.baibei.repository.service.query.UserInventoryAccountQueryService" consumer="account-service-consumer" />
+</beans>

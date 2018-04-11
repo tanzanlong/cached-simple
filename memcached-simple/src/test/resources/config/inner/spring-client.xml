@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+
+	<description>第三方中间件的客户端</description>
+	<context:property-placeholder location="classpath*:properties/app.properties"/>
+	<bean id="jedisClusterManager" class="com.baibei.component.redis.JedisClusterManager" init-method="init">
+		<property name="servers" value="${REDIS.CLUSTER.SERVERS}" />
+		<property name="timeout" value="${REDIS.CLUSTER.TIMEOUT}" />
+		<property name="maxRedirections" value="${REDIS.CLUSTER.MAX_REDIRECTIONS}" />
+	</bean>
+	<!-- redis client -->
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxTotal" value="500" />
+		<property name="maxIdle" value="50" />
+		<property name="minIdle" value="10" />
+	</bean>
+	<bean id="connectionFactory" class="com.rabbitmq.client.ConnectionFactory">
+		<property name="automaticRecoveryEnabled" value="true"></property>
+		<property name="host" value="${RABBITMQ.SERVER_IP}"></property>
+		<property name="port" value="${RABBITMQ.SERVER_PORT}"></property>
+		<property name="username" value="${RABBITMQ.USERNAME}"></property>
+		<property name="password" value="${RABBITMQ.PASSWORD}"></property>
+		<property name="virtualHost" value="${RABBITMQ.VIRTUAL_HOST}"></property>
+	</bean>
+	<bean id="zkConnector" class="com.baibei.component.zk.ZooKeeperConnector"
+		init-method="connect" lazy-init="false">
+		<property name="hosts" value="${ZOOKEEPER.CONNECTION.HOSTS}" />
+	</bean>
+</beans>

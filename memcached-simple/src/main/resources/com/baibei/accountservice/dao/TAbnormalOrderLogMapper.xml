@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baibei.accountservice.dao.TAbnormalOrderLogMapper" >
+  <resultMap id="BaseResultMap" type="com.baibei.accountservice.model.TAbnormalOrderLog" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="order_type" property="orderType" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="org_status" property="orgStatus" jdbcType="VARCHAR" />
+    <result column="channel_status" property="channelStatus" jdbcType="VARCHAR" />
+    <result column="org_amount" property="orgAmount" jdbcType="BIGINT" />
+    <result column="channel_amount" property="channelAmount" jdbcType="BIGINT" />
+    <result column="channel" property="channel" jdbcType="VARCHAR" />
+    <result column="audit_status" property="auditStatus" jdbcType="VARCHAR" />
+    <result column="audit_time" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="audit_msg" property="auditMsg" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, order_type, order_id, org_status, channel_status, org_amount, channel_amount, 
+    channel, audit_status, audit_time, audit_msg, create_time, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.baibei.accountservice.model.TAbnormalOrderLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_abnormal_order_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_abnormal_order_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_abnormal_order_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.baibei.accountservice.model.TAbnormalOrderLogExample" >
+    delete from t_abnormal_order_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.baibei.accountservice.model.TAbnormalOrderLog" >
+    insert into t_abnormal_order_log (id, order_type, order_id, 
+      org_status, channel_status, org_amount, 
+      channel_amount, channel, audit_status, 
+      audit_time, audit_msg, create_time, 
+      update_time)
+    values (#{id,jdbcType=BIGINT}, #{orderType,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, 
+      #{orgStatus,jdbcType=VARCHAR}, #{channelStatus,jdbcType=VARCHAR}, #{orgAmount,jdbcType=BIGINT}, 
+      #{channelAmount,jdbcType=BIGINT}, #{channel,jdbcType=VARCHAR}, #{auditStatus,jdbcType=VARCHAR}, 
+      #{auditTime,jdbcType=TIMESTAMP}, #{auditMsg,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.baibei.accountservice.model.TAbnormalOrderLog" >
+    insert into t_abnormal_order_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderType != null" >
+        order_type,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="orgStatus != null" >
+        org_status,
+      </if>
+      <if test="channelStatus != null" >
+        channel_status,
+      </if>
+      <if test="orgAmount != null" >
+        org_amount,
+      </if>
+      <if test="channelAmount != null" >
+        channel_amount,
+      </if>
+      <if test="channel != null" >
+        channel,
+      </if>
+      <if test="auditStatus != null" >
+        audit_status,
+      </if>
+      <if test="auditTime != null" >
+        audit_time,
+      </if>
+      <if test="auditMsg != null" >
+        audit_msg,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgStatus != null" >
+        #{orgStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="channelStatus != null" >
+        #{channelStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="orgAmount != null" >
+        #{orgAmount,jdbcType=BIGINT},
+      </if>
+      <if test="channelAmount != null" >
+        #{channelAmount,jdbcType=BIGINT},
+      </if>
+      <if test="channel != null" >
+        #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null" >
+        #{auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditMsg != null" >
+        #{auditMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.baibei.accountservice.model.TAbnormalOrderLogExample" resultType="java.lang.Integer" >
+    select count(*) from t_abnormal_order_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_abnormal_order_log
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderType != null" >
+        order_type = #{record.orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgStatus != null" >
+        org_status = #{record.orgStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.channelStatus != null" >
+        channel_status = #{record.channelStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgAmount != null" >
+        org_amount = #{record.orgAmount,jdbcType=BIGINT},
+      </if>
+      <if test="record.channelAmount != null" >
+        channel_amount = #{record.channelAmount,jdbcType=BIGINT},
+      </if>
+      <if test="record.channel != null" >
+        channel = #{record.channel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditStatus != null" >
+        audit_status = #{record.auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditTime != null" >
+        audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.auditMsg != null" >
+        audit_msg = #{record.auditMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_abnormal_order_log
+    set id = #{record.id,jdbcType=BIGINT},
+      order_type = #{record.orderType,jdbcType=VARCHAR},
+      order_id = #{record.orderId,jdbcType=VARCHAR},
+      org_status = #{record.orgStatus,jdbcType=VARCHAR},
+      channel_status = #{record.channelStatus,jdbcType=VARCHAR},
+      org_amount = #{record.orgAmount,jdbcType=BIGINT},
+      channel_amount = #{record.channelAmount,jdbcType=BIGINT},
+      channel = #{record.channel,jdbcType=VARCHAR},
+      audit_status = #{record.auditStatus,jdbcType=VARCHAR},
+      audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      audit_msg = #{record.auditMsg,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.baibei.accountservice.model.TAbnormalOrderLog" >
+    update t_abnormal_order_log
+    <set >
+      <if test="orderType != null" >
+        order_type = #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgStatus != null" >
+        org_status = #{orgStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="channelStatus != null" >
+        channel_status = #{channelStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="orgAmount != null" >
+        org_amount = #{orgAmount,jdbcType=BIGINT},
+      </if>
+      <if test="channelAmount != null" >
+        channel_amount = #{channelAmount,jdbcType=BIGINT},
+      </if>
+      <if test="channel != null" >
+        channel = #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null" >
+        audit_status = #{auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditMsg != null" >
+        audit_msg = #{auditMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.baibei.accountservice.model.TAbnormalOrderLog" >
+    update t_abnormal_order_log
+    set order_type = #{orderType,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      org_status = #{orgStatus,jdbcType=VARCHAR},
+      channel_status = #{channelStatus,jdbcType=VARCHAR},
+      org_amount = #{orgAmount,jdbcType=BIGINT},
+      channel_amount = #{channelAmount,jdbcType=BIGINT},
+      channel = #{channel,jdbcType=VARCHAR},
+      audit_status = #{auditStatus,jdbcType=VARCHAR},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      audit_msg = #{auditMsg,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select resultMap="BaseResultMap" parameterType="com.baibei.accountservice.model.TAbnormalOrderLogExample" id="selectByExampleWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_abnormal_order_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

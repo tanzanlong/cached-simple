@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true" scan="true" scanPeriod="30 seconds">
+	<property name="LOG_DIR_PATH" value="/logs/account-service" />
+
+
+	<appender name="INFO-OUT"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR_PATH}/info.log</file>
+		<encoder>
+			<pattern>
+				traceID:[%X{traceID}] - %d{yyyy-MM-dd HH:mm:ss.SSS} [%service] [%hostname] [%level] [%class:%line] - %m%n
+			</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${LOG_DIR_PATH}/info-%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 300MB -->
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>
+				traceID:[%X{traceID}] - %d{yyyy-MM-dd HH:mm:ss.SSS} [%service] [%hostname] [%level] [%class:%line] - %m%n
+			</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+	</appender>
+
+<!--	<logger name="org.apache.ibatis" level="INFO">
+		<appender-ref ref="STDOUT"/>
+	</logger>-->
+	<logger name="com.baibei.accountservice.*" level="info" additivity="false">
+		<appender-ref ref="INFO-OUT" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+
+	<logger name="org.springframework" level="ERROR"/>
+	<logger name="org.apache.zookeeper" level="ERROR"/>
+	<logger name="com.alibaba.dubbo" level="ERROR"/>
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="INFO-OUT" />
+	</root>
+</configuration>

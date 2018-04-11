@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baibei.accountservice.dao.TTicketMapper" >
+  <resultMap id="BaseResultMap" type="com.baibei.accountservice.model.TTicket" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="batch_no" property="batchNo" jdbcType="VARCHAR" />
+    <result column="ticket_name" property="ticketName" jdbcType="VARCHAR" />
+    <result column="ticket_type" property="ticketType" jdbcType="VARCHAR" />
+    <result column="ticket_value" property="ticketValue" jdbcType="BIGINT" />
+    <result column="ticket_face_value" property="ticketFaceValue" jdbcType="INTEGER" />
+    <result column="effective_time" property="effectiveTime" jdbcType="TIMESTAMP" />
+    <result column="expire_time" property="expireTime" jdbcType="TIMESTAMP" />
+    <result column="account_id" property="accountId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="seller_account_id" property="sellerAccountId" jdbcType="BIGINT" />
+    <result column="seller_user_id" property="sellerUserId" jdbcType="VARCHAR" />
+    <result column="business_type" property="businessType" jdbcType="VARCHAR" />
+    <result column="ticket_status" property="ticketStatus" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, batch_no, ticket_name, ticket_type, ticket_value, ticket_face_value, effective_time, 
+    expire_time, account_id, user_id, seller_account_id, seller_user_id, business_type, 
+    ticket_status, create_time, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.baibei.accountservice.model.TTicketExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_ticket
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_ticket
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_ticket
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.baibei.accountservice.model.TTicketExample" >
+    delete from t_ticket
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.baibei.accountservice.model.TTicket" >
+    insert into t_ticket (id, batch_no, ticket_name, 
+      ticket_type, ticket_value, ticket_face_value, 
+      effective_time, expire_time, account_id, 
+      user_id, seller_account_id, seller_user_id, 
+      business_type, ticket_status, create_time, 
+      update_time)
+    values (#{id,jdbcType=VARCHAR}, #{batchNo,jdbcType=VARCHAR}, #{ticketName,jdbcType=VARCHAR}, 
+      #{ticketType,jdbcType=VARCHAR}, #{ticketValue,jdbcType=BIGINT}, #{ticketFaceValue,jdbcType=INTEGER}, 
+      #{effectiveTime,jdbcType=TIMESTAMP}, #{expireTime,jdbcType=TIMESTAMP}, #{accountId,jdbcType=BIGINT}, 
+      #{userId,jdbcType=VARCHAR}, #{sellerAccountId,jdbcType=BIGINT}, #{sellerUserId,jdbcType=VARCHAR}, 
+      #{businessType,jdbcType=VARCHAR}, #{ticketStatus,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.baibei.accountservice.model.TTicket" >
+    insert into t_ticket
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="batchNo != null" >
+        batch_no,
+      </if>
+      <if test="ticketName != null" >
+        ticket_name,
+      </if>
+      <if test="ticketType != null" >
+        ticket_type,
+      </if>
+      <if test="ticketValue != null" >
+        ticket_value,
+      </if>
+      <if test="ticketFaceValue != null" >
+        ticket_face_value,
+      </if>
+      <if test="effectiveTime != null" >
+        effective_time,
+      </if>
+      <if test="expireTime != null" >
+        expire_time,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="sellerAccountId != null" >
+        seller_account_id,
+      </if>
+      <if test="sellerUserId != null" >
+        seller_user_id,
+      </if>
+      <if test="businessType != null" >
+        business_type,
+      </if>
+      <if test="ticketStatus != null" >
+        ticket_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNo != null" >
+        #{batchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketName != null" >
+        #{ticketName,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketType != null" >
+        #{ticketType,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketValue != null" >
+        #{ticketValue,jdbcType=BIGINT},
+      </if>
+      <if test="ticketFaceValue != null" >
+        #{ticketFaceValue,jdbcType=INTEGER},
+      </if>
+      <if test="effectiveTime != null" >
+        #{effectiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expireTime != null" >
+        #{expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerAccountId != null" >
+        #{sellerAccountId,jdbcType=BIGINT},
+      </if>
+      <if test="sellerUserId != null" >
+        #{sellerUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="businessType != null" >
+        #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketStatus != null" >
+        #{ticketStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.baibei.accountservice.model.TTicketExample" resultType="java.lang.Integer" >
+    select count(*) from t_ticket
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_ticket
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.batchNo != null" >
+        batch_no = #{record.batchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ticketName != null" >
+        ticket_name = #{record.ticketName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ticketType != null" >
+        ticket_type = #{record.ticketType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ticketValue != null" >
+        ticket_value = #{record.ticketValue,jdbcType=BIGINT},
+      </if>
+      <if test="record.ticketFaceValue != null" >
+        ticket_face_value = #{record.ticketFaceValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.effectiveTime != null" >
+        effective_time = #{record.effectiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.expireTime != null" >
+        expire_time = #{record.expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.accountId != null" >
+        account_id = #{record.accountId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sellerAccountId != null" >
+        seller_account_id = #{record.sellerAccountId,jdbcType=BIGINT},
+      </if>
+      <if test="record.sellerUserId != null" >
+        seller_user_id = #{record.sellerUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessType != null" >
+        business_type = #{record.businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ticketStatus != null" >
+        ticket_status = #{record.ticketStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_ticket
+    set id = #{record.id,jdbcType=VARCHAR},
+      batch_no = #{record.batchNo,jdbcType=VARCHAR},
+      ticket_name = #{record.ticketName,jdbcType=VARCHAR},
+      ticket_type = #{record.ticketType,jdbcType=VARCHAR},
+      ticket_value = #{record.ticketValue,jdbcType=BIGINT},
+      ticket_face_value = #{record.ticketFaceValue,jdbcType=INTEGER},
+      effective_time = #{record.effectiveTime,jdbcType=TIMESTAMP},
+      expire_time = #{record.expireTime,jdbcType=TIMESTAMP},
+      account_id = #{record.accountId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      seller_account_id = #{record.sellerAccountId,jdbcType=BIGINT},
+      seller_user_id = #{record.sellerUserId,jdbcType=VARCHAR},
+      business_type = #{record.businessType,jdbcType=VARCHAR},
+      ticket_status = #{record.ticketStatus,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.baibei.accountservice.model.TTicket" >
+    update t_ticket
+    <set >
+      <if test="batchNo != null" >
+        batch_no = #{batchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketName != null" >
+        ticket_name = #{ticketName,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketType != null" >
+        ticket_type = #{ticketType,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketValue != null" >
+        ticket_value = #{ticketValue,jdbcType=BIGINT},
+      </if>
+      <if test="ticketFaceValue != null" >
+        ticket_face_value = #{ticketFaceValue,jdbcType=INTEGER},
+      </if>
+      <if test="effectiveTime != null" >
+        effective_time = #{effectiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expireTime != null" >
+        expire_time = #{expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerAccountId != null" >
+        seller_account_id = #{sellerAccountId,jdbcType=BIGINT},
+      </if>
+      <if test="sellerUserId != null" >
+        seller_user_id = #{sellerUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="businessType != null" >
+        business_type = #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketStatus != null" >
+        ticket_status = #{ticketStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.baibei.accountservice.model.TTicket" >
+    update t_ticket
+    set batch_no = #{batchNo,jdbcType=VARCHAR},
+      ticket_name = #{ticketName,jdbcType=VARCHAR},
+      ticket_type = #{ticketType,jdbcType=VARCHAR},
+      ticket_value = #{ticketValue,jdbcType=BIGINT},
+      ticket_face_value = #{ticketFaceValue,jdbcType=INTEGER},
+      effective_time = #{effectiveTime,jdbcType=TIMESTAMP},
+      expire_time = #{expireTime,jdbcType=TIMESTAMP},
+      account_id = #{accountId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=VARCHAR},
+      seller_account_id = #{sellerAccountId,jdbcType=BIGINT},
+      seller_user_id = #{sellerUserId,jdbcType=VARCHAR},
+      business_type = #{businessType,jdbcType=VARCHAR},
+      ticket_status = #{ticketStatus,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select resultMap="BaseResultMap" parameterType="com.baibei.accountservice.model.TTicketExample" id="selectByExampleWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_ticket
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="sumUnusedTicketValue" resultType="java.lang.Long">
+  	select sum(ticket_value) from t_ticket where seller_user_id = #{userId} and ticket_status in ('INIT','GIVED') 
+  </select>
+  <update id="batchGive">
+  	update t_ticket set batch_no=#{batchNo},user_id=#{userId},account_id=#{accountId},effective_time=#{effectiveTime},expire_time=#{expireTime},ticket_status = 'GIVED',update_time=now() where 
+  	seller_user_id=#{sellerUserId} and ticket_type =#{ticketType} and ticket_status = 'INIT' limit #{amount}
+  </update>
+    <insert id="batchInsert" parameterType="com.baibei.accountservice.model.TTicket" >
+    insert into t_ticket (id, batch_no, ticket_name, 
+      ticket_type, ticket_value, ticket_face_value, 
+      effective_time, expire_time, account_id, 
+      user_id, seller_account_id, seller_user_id, 
+      business_type, ticket_status, create_time, 
+      update_time) values
+      <foreach collection="list" item="item" index="index" separator=",">
+     (#{item.id,jdbcType=VARCHAR}, #{item.batchNo,jdbcType=VARCHAR}, #{item.ticketName,jdbcType=VARCHAR}, 
+      #{item.ticketType,jdbcType=VARCHAR}, #{item.ticketValue,jdbcType=BIGINT}, #{item.ticketFaceValue,jdbcType=INTEGER}, 
+      #{item.effectiveTime,jdbcType=TIMESTAMP}, #{item.expireTime,jdbcType=TIMESTAMP}, #{item.accountId,jdbcType=BIGINT}, 
+      #{item.userId,jdbcType=VARCHAR}, #{item.sellerAccountId,jdbcType=BIGINT}, #{item.sellerUserId,jdbcType=VARCHAR}, 
+      #{item.businessType,jdbcType=VARCHAR}, #{item.ticketStatus,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, 
+      #{item.updateTime,jdbcType=TIMESTAMP})
+      </foreach>
+  </insert>
+  <update id="updateStatusBatch">
+  	update t_ticket set ticket_status = #{ticketStatus},update_time=now() where 
+  	seller_user_id=#{sellerUserId} and ticket_type =#{ticketType} and ticket_status = 'INIT'
+  </update>
+</mapper>

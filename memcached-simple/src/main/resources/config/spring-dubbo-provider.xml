@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	   xmlns:apollo="http://www.ctrip.com/schema/apollo"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	   http://code.alibabatech.com/schema/dubbo
+	   http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+	   http://www.ctrip.com/schema/apollo http://www.ctrip.com/schema/apollo.xsd">
+
+	<!-- Application name -->
+	<dubbo:application name="account-service-provider"/>
+	
+	<!-- registry address, used for service to register itself -->
+	<apollo:config/>
+	<dubbo:registry address="${dubbo.zookeeper.address}" file="./.dubbo/registry_cache"/>
+
+<!-- 	<dubbo:monitor protocol="registry"/> -->
+
+	<dubbo:protocol name="dubbo"  port="${dubbo.port}"  threads="600" />
+
+	<!-- <dubbo:protocol name="dubbo" host="192.168.100.37"  port="${dubbo.port}" threads="600" />-->
+
+
+<!-- 客户服务 -->
+ <dubbo:service interface="com.baibei.account.provider.AccountProvider" ref="accountProviderImpl" protocol="dubbo" timeout="30000"   version="1.0.0" />
+ <dubbo:service interface="com.baibei.account.provider.BalanceProvider" ref="balanceProviderImpl" protocol="dubbo" timeout="30000"   version="1.0.0" />
+ <dubbo:service interface="com.baibei.account.provider.ReportProvider" ref="reportProviderImpl" protocol="dubbo" timeout="30000"   version="1.0.0" />
+ 
+ <dubbo:service interface="com.baibei.accountservice.paycenter.provider.BankInfoProvider" ref="bankInfoProviderImpl" protocol="dubbo"  timeout="30000"  version="1.0.0" />
+<dubbo:service interface="com.baibei.accountservice.paycenter.provider.TransferringProvider" ref="transferringProviderImpl" protocol="dubbo"  timeout="30000" version="1.0.0" />
+
+ <dubbo:service interface="com.baibei.account.provider.BalanceLogProvider" ref="balanceLogProviderImpl" protocol="dubbo"  timeout="30000" version="1.0.0" />
+ 
+ <dubbo:service interface="com.baibei.accountservice.paycenter.provider.PaycenterCorrectProvider" ref="paycenterCorrectProviderImpl" protocol="dubbo"  timeout="30000"  version="1.0.0" />
+<dubbo:service interface="com.baibei.accountservice.settlement.provider.SettlementProvider" ref="settlementProviderImpl" protocol="dubbo"  timeout="30000"  version="1.0.0" />
+ 
+</beans>

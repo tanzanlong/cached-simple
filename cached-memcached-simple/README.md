@@ -26,3 +26,27 @@ $  /usr/bin/memcached  -h                           命令帮助
 # /usr/local/memcached/bin/memcached -p 11211 -m 64m -d
 或者
 /usr/local/memcached/bin/memcached -d -m 64M -u root -l 192.168.0.200 -p 11211 -c 256 -P /tmp/memcached.pid
+
+
+
+#术语
+
+Page：分配给slab的内存空间，默认为1M。分配给slab后根据大小切分成chunk。
+
+Chunk:用于缓存记录的内存空间。
+
+Slab class：特定大小的chunk组；
+
+
+#特点：
+1. 协议简单
+
+2.基于libevent事件处理
+
+3.内置内存存储方式（slab）
+
+4.节点之间互不通信。
+
+
+slab allocator与传统 malloc，free的区别。
+

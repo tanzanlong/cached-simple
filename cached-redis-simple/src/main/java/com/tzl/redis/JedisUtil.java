@@ -1,4 +1,4 @@
-package com.baibei.portal.special;
+package com.tzl.redis;
 
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -116,7 +116,8 @@ public class JedisUtil {
      * 
      * @param jedis 
      */  
-    public static void returnResource(final Jedis jedis) {  
+    @SuppressWarnings("deprecation")
+	public static void returnResource(final Jedis jedis) {  
         if (jedis != null && jedisPool != null) {  
             jedisPool.returnResource(jedis);  
         }  

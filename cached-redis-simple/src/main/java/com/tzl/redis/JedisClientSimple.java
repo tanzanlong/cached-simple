@@ -1,4 +1,4 @@
-package com.baibei.redis.client.simple;
+package com.tzl.redis;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -105,6 +105,7 @@ public class JedisClientSimple {
 		// 设置连接池没有连接后客户端的最大等待时间(单位为毫秒)
 		poolConfig.setMaxWaitMillis(3000);
 		// 初始化Jedis连接池
+		@SuppressWarnings("resource")
 		JedisPool jedisPool = new JedisPool(poolConfig, "192.168.212.24", 6379);
 		
 		Jedis jedis = null;

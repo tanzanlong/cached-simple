@@ -1,26 +1,22 @@
-package com.baibei.portal.special;
+package com.tzl.redis;
 
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
 
 /**
  *
- * @author hkw
+ * @author tan
  * @since 2017-03-05
  * @version 1.0.0.RELEASE
  */
-@SpringBootApplication
-@ImportResource({"classpath:spring/spring-config.xml",
-        "classpath:spring/spring-client.xml",
-        "classpath:spring/spring-dubbo-consumer.xml",
-        "classpath:spring/spring-dubbo-provider.xml",
-        "classpath:spring/spring-data.xml",
-        "classpath:spring/spring-session-redis.xml",//使用spring session 替换掉HttpSession 实现单点登录session 共享
-})
-@ComponentScan("com.baibei.portal")
+@EnableAutoConfiguration
+@ComponentScan("com.tzl")
+/*@EnableAspectJAutoProxy(proxyTargetClass=true)*/
+@ImportResource({"classpath:config/spring-client.xml"})
 @Slf4j
 public class Bootstrap{
     // 启动服务

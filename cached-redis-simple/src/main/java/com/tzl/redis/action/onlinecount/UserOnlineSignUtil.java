@@ -1,6 +1,7 @@
 package com.tzl.redis.action.onlinecount;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.tzl.redis.util.JedisClient;
 import com.tzl.util.DateUtil;
@@ -14,6 +15,7 @@ import com.tzl.util.DateUtil;
  * 执行BITCOUNT $uid=10001 ,得出的结果就是$uid=10001上线的总天数. 
  * 签到后如果需要奖励判断可以另存key(uid:reward:day),里面可以存储对应的奖励及领奖标记位. 
  */
+@Component
 public class UserOnlineSignUtil {
     
     private static final Long START_TIMESTRAMP = 1419091200L; // 首日签到时间 20141221

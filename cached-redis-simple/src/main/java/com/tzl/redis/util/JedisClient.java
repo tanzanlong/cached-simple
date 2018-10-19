@@ -808,4 +808,23 @@ public class JedisClient {
     public Boolean getbit(String key,Long offsets) {
         return jedisCluster.getbit(key, offsets);
     }
+    
+    
+    public Set<Tuple> zrevrangeWithScores(String key, int start, int limit) {
+     // 降序查询，并获取成员的分数
+        Set<Tuple> tupleSet = jedisCluster.zrevrangeWithScores(key, start, limit);
+        return tupleSet;
+    }
+    
+    public Set<String> zrevrange(String key, int start, int end) {
+        // 降序查询，并获取成员的分数
+           Set<String> tupleSet = jedisCluster.zrevrange(key, start, end);
+           return tupleSet;
+       }
+    
+    public Double zincrby(String key, double score, String member) {
+        // 降序查询，并获取成员的分数
+           Double tupleSet = jedisCluster.zincrby(key, score, member);
+           return tupleSet;
+       }
 }
